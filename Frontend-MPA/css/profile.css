@@ -1,0 +1,317 @@
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Inter", system-ui, sans-serif;
+}
+
+/* COLORS */
+:root {
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --border: #e5e7eb;
+    --text: #0f172a;
+    --muted: #64748b;
+    --blue: #2563eb;
+    --green: #22c55e;
+    --red: #ef4444;
+}
+
+/* BODY */
+body {
+    background: var(--bg);
+    color: var(--text);
+}
+
+/* HEADER */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 28px;
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+}
+
+.logo img {
+    border-radius:20px;
+    width: 32px;
+}
+
+.nav a {
+    margin: 0 12px;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.nav a.active,
+.nav a:hover {
+    color: var(--blue);
+}
+
+/* PAGE */
+.profile-page {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* PROFILE CARD */
+.profile-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 28px;
+}
+
+/* TOP ROW */
+.profile-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap; /* added for responsiveness */
+}
+
+/* USER */
+.profile-user {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.avatar-circle {
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    background: var(--blue);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 26px;
+}
+
+.user-details h2 {
+    font-size: 22px;
+}
+
+.username {
+    font-size: 14px;
+    color: var(--muted);
+    margin-top: 4px;
+}
+
+/* TAGS */
+.user-tags {
+    margin-top: 12px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.tag {
+    font-size: 13px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: #f1f5f9;
+}
+
+.streak {
+    color: #f97316;
+}
+
+.consistency {
+    color: var(--blue);
+}
+
+/* ACTION BUTTONS */
+.profile-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.profile-actions button {
+    padding: 10px 16px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--text);
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.settings-btn:hover {
+    background: #eff6ff;
+    border-color: var(--blue);
+    color: var(--blue);
+}
+
+.logout-btn {
+    color: var(--red);
+}
+
+.logout-btn:hover {
+    background: #fee2e2;
+    border-color: var(--red);
+}
+
+/* DIVIDER */
+.divider {
+    margin: 28px 0;
+    border: none;
+    border-top: 1px solid var(--border);
+}
+
+/* STATS GRID */
+.profile-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 22px;
+}
+
+.stat-item {
+    border-radius: 16px;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid var(--border);
+    background: var(--card);
+}
+
+.stat-item h3 {
+    font-size: 26px;
+    color: var(--blue);
+}
+
+.stat-item span {
+    font-size: 14px;
+    color: var(--muted);
+}
+
+/* CARD SECTIONS */
+.card {
+    margin-top: 38px;
+    background: var(--card);
+    width: 100%; /* made responsive */
+    max-width: 400px;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 20px;
+}
+
+.activity {
+    margin-top: 64px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 20px;
+}
+
+.card h3 {
+    margin-bottom: 18px;
+    font-size: 18px;
+}
+
+/* ACHIEVEMENTS */
+.reward-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 100px); /* same as before */
+    gap: 20px;
+}
+
+/* REWARD CARD HOVER EFFECT */
+.reward-card {
+    background: var(--card);
+    border: 1.2px solid var(--border);
+    border-radius: 16px;
+    padding: 10px;
+    text-align: center;
+    transition: all 0.25s ease;
+    cursor: pointer;
+}
+
+.reward-card:hover {
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    border-color: var(--blue);
+}
+
+/* ICON */
+.reward-card .icon {
+    font-size: 28px;
+    margin-bottom: 10px; /* slightly reduced */
+}
+
+/* TITLE */
+.reward-card .title {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* STATUS */
+.reward-card .status {
+    font-size: 12px;
+    color: var(--muted);
+}
+
+/* LOCKED STATE */
+.reward-card.locked {
+    opacity: 0.4;
+    cursor: default;
+}
+
+.reward-card.locked:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: var(--border);
+}
+
+/* RECENT ACTIVITY */
+.activity-item {
+    padding: 14px 16px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: #f8fafc;
+    margin-bottom: 12px;
+    font-size: 14px;
+}
+
+/* FOOTER */
+.footer {
+    text-align: center;
+    padding: 26px;
+    color: var(--muted);
+    font-size: 14px;
+    border-top: 1px solid var(--border);
+    margin-top: 50px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .profile-top {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .profile-actions {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .card, .activity {
+        width: 100%;
+        max-width: none;
+    }
+}

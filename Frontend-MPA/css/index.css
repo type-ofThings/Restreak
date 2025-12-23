@@ -1,0 +1,324 @@
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Inter", system-ui, sans-serif;
+}
+
+/* COLORS */
+:root {
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --border: #e5e7eb;
+    --text: #0f172a;
+    --muted: #64748b;
+    --blue: #2563eb;
+    --green: #22c55e;
+    --red: #ef4444;
+}
+
+/* BODY */
+body {
+    background: var(--bg);
+    color: var(--text);
+}
+
+/* HEADER */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 28px;
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+}
+
+.logo img {
+    border-radius:20px;
+    width: 32px;
+}
+
+.nav a {
+    margin: 0 12px;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.nav a.active,
+.nav a:hover {
+    color: var(--blue);
+}
+
+/* ========== DASHBOARD LAYOUT ========== */
+.dashboard {
+    display: flex;
+    gap: 1rem;
+    padding: 2rem;
+}
+
+.dashboard-center {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.dashboard-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* ========== CARD ========== */
+.card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+/* ========== CALENDAR ========== */
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+}
+
+.day {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    background: #e0e0e0;
+    font-size: 0.9rem;
+}
+
+.day.completed { background: #4caf50; color: #fff; }
+.day.today { background: #2196f3; color: #fff; }
+.day.future { background: #ccc; color: #666; }
+
+/* ========== HABITS ========== */
+.habits-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.habit-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.8rem;
+}
+
+.habit-item button {
+    background: #4caf50;
+    color: #fff;
+    border: none;
+    padding: 0.35rem 0.8rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.habit-item button:hover {
+    background: #43a047;
+}
+
+/* ========== ADD HABIT BUTTON ========== */
+.add-btn {
+    background: #2196f3;
+    color: #fff;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.add-btn:hover {
+    background: #1976d2;
+    box-shadow: 0 6px 14px rgba(33, 150, 243, 0.35);
+    transform: translateY(-1px);
+}
+
+/* ========== DRAWER ========== */
+.habit-drawer {
+    position: fixed;
+    top: 0;
+    right: -380px;
+    width: 360px;
+    height: 100vh;
+    background: #fff;
+    box-shadow: -4px 0 20px rgba(0,0,0,0.1);
+    padding: 1.2rem;
+    transition: right 0.3s ease;
+    z-index: 1000;
+}
+
+.habit-drawer.open {
+    right: 0;
+}
+
+.drawer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+/* ========== TABS ========== */
+.drawer-tabs {
+    display: flex;
+    gap: 10px;
+    margin: 1rem 0;
+}
+
+.tab {
+    flex: 1;
+    padding: 8px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #f0f0f0;
+}
+
+.tab.active {
+    background: #2196f3;
+    color: #fff;
+}
+
+/* ========== DRAWER CONTENT ========== */
+.drawer-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.drawer-content.hidden {
+    display: none;
+}
+
+/* BUILT-IN HABITS */
+.builtin-habit {
+    padding: 10px;
+    border-radius: 8px;
+    background: #f5f6fa;
+    cursor: pointer;
+}
+
+/* FORM */
+.drawer-content label {
+    font-size: 0.85rem;
+    color: #555;
+}
+
+.drawer-content input,
+.drawer-content select {
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+/* PRIVACY */
+.privacy-options {
+    display: flex;
+    gap: 15px;
+}
+
+/* SAVE BUTTON */
+.save-habit {
+    margin-top: 10px;
+    background: #4caf50;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.save-habit:hover {
+    background: #43a047;
+}
+
+/* ========== AI BUBBLE ========== */
+.ai-bubble {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    cursor: pointer;
+    transition: transform 0.3s;
+    overflow: hidden; /* 🔥 important for circular crop */
+}
+
+.ai-bubble img {
+    width: 70%;      /* adjust if needed */
+    height: 70%;
+    object-fit: contain;
+    pointer-events: none; /* click stays on bubble */
+}
+
+.ai-bubble:hover {
+    transform: scale(1.1);
+}
+
+/* ========== FOOTER ========== */
+.footer {
+    background: #fff;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
+}
+
+.footer-links {
+    margin: 1rem 0;
+}
+
+.footer-links a {
+    margin: 0 1rem;
+    text-decoration: none;
+    color: #2196f3;
+}
