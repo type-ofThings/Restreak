@@ -2,73 +2,57 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Login – Restreak</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login • ReStreak</title>
+
+  <link rel="stylesheet" href="./login.css">
   <link rel="stylesheet" href="../css/login.css">
 </head>
-
 <body>
 
-  <!-- HEADER -->
-  <header class="header">
+  <div class="floating-icon brain">🧠</div>
+  <div class="floating-icon fire">🔥</div>
+  <div class="floating-icon spark">✨</div>
+
+  <div class="login-container">
+
+    <!-- LOGO IMAGE -->
     <div class="logo">
-      <img src="../images/logo.png" alt="Restreak">
-      <span>Restreak</span>
+      <img src="../images/logo.jpg" alt="logo">
+      <span>ReStreak</span>
     </div>
-  </header>
 
-  <!-- LOGIN -->
-  <main class="login-container">
-    <div class="login-card">
+    <div class="tagline">Build habits. Break guilt. Stay consistent.</div>
 
-      <!-- Card Header -->
-      <div class="card-header">
-        <h1>Welcome back</h1>
-        <p>Log in to continue your habit journey</p>
+    <form>
+      <div class="input-group">
+        <input type="email" required placeholder=" ">
+        <label>Email</label>
       </div>
 
-      <!-- FORM -->
-      <form>
+      <div class="input-group">
+        <input type="password" required placeholder=" ">
+        <label>Password</label>
+      </div>
 
-        <div class="input-group">
-          <input type="email" required>
-          <label>Email address</label>
-        </div>
+      <button class="login-btn">Login 🚀</button>
 
-        <div class="input-group">
-          <input type="password" required>
-          <label>Password</label>
-        </div>
+      <div class="divider">or</div>
 
-        <div class="options">
-          <label class="remember">
-            <input type="checkbox">
-            Remember me
-          </label>
-          <a href="#" class="forgot">Forgot password?</a>
-        </div>
-         <a href="main.html" class="login-btn">Sign in</a>
-      </form>
-
-      <div class="divider">OR</div>
-
-      <button class="google-btn">
-        <img src="../images/google-icon.svg" alt="">
+      <button type="button" class="google-btn">
+        <img src="https://share.google/CY53JG3RyL6dzOQEh">
         Continue with Google
       </button>
 
-      <p class="signup-text">
-        Don’t have an account?
-        <a href="#">Create one</a>
-      </p>
+      <div class="extra">
+        <a href="#">Create account</a>
+      </div>
 
-    </div>
-  </main>
-
-  <!-- FOOTER -->
-  <footer class="footer">
-    <p>© 2025 Restreak. All rights reserved.</p>
-  </footer>
+      <div class="ai-note">
+        🤖 Your AI mentor supports you — no judgment, ever.
+      </div>
+    </form>
+  </div>
 
 </body>
 </html>

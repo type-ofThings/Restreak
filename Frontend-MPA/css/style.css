@@ -387,3 +387,54 @@ body {
   cursor: pointer;
 }
 
+
+
+
+
+
+
+
+/* RISHIT MEHRA */
+.ai-demo{
+  padding:100px 40px;
+  background:#eef2ff;
+  text-align:center;
+}
+
+.ai-subtitle{
+  color:#64748b;
+  margin-bottom:50px;
+}
+
+.ai-cards{
+  max-width:1000px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:30px;
+}
+
+.ai-card{
+  background:#fff;
+  padding:32px 22px;
+  border-radius:18px;
+  box-shadow:0 12px 30px rgba(0,0,0,.1);
+  transition:.3s;
+}
+
+.ai-card:hover{
+  transform:translateY(-8px);
+}
+
+.ai-card img{
+  width:42px;
+  margin-bottom:12px;
+}
+
+.ai-card p{
+  color:#64748b;
+  font-size:14px;
+}
+
+
+
