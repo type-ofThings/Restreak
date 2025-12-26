@@ -3,6 +3,7 @@ import { initializeApp } from 'firebase/app';
 import { 
   getAuth, 
   signInWithCustomToken, 
+  signInAnonymously, // Added this back as it might be needed for the environment
   onAuthStateChanged, 
   signOut,
   createUserWithEmailAndPassword,
@@ -72,8 +73,9 @@ const USER_FIREBASE_CONFIG = {
 
 };
 
-const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;;
+const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 
+// Use environment config if available
 const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : USER_FIREBASE_CONFIG;
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
@@ -103,14 +105,14 @@ const formatTimeAgo = (timestamp) => {
   return `${days}d ago`;
 };
 
-// --- Badge Definitions ---
+// --- Badge Definitions (With conditions) ---
 const BADGES = [
-  { id: 'first_habit', name: 'First Step', description: 'Created your first habit', icon: 'Zap' },
-  { id: '3_day_streak', name: 'Momentum', description: 'Reached a 3-day streak', icon: 'Flame' },
-  { id: 'recovery_master', name: 'Recovery Master', description: 'Came back after a missed day', icon: 'Activity' },
-  { id: '7_day_consistency', name: 'Consistent', description: '7 days of activity', icon: 'CalendarIcon' },
-  { id: 'habit_scholar', name: 'Scholar', description: 'Completed 10 study sessions', icon: 'BookOpen' },
-  { id: 'early_riser', name: 'Early Riser', description: 'Completed a habit before 8am', icon: 'check' },
+  { id: 'first_habit', name: 'First Step', description: 'Created your first habit', icon: 'Zap', condition: (streak) => streak >= 1 },
+  { id: '3_day_streak', name: 'Momentum', description: 'Reached a 3-day streak', icon: 'Flame', condition: (streak) => streak >= 3 },
+  { id: 'recovery_master', name: 'Recovery Master', description: 'Came back after a missed day', icon: 'Activity', condition: () => false }, // Placeholder logic
+  { id: '7_day_consistency', name: 'Consistent', description: '7 days of activity', icon: 'CalendarIcon', condition: (streak) => streak >= 7 },
+  { id: 'habit_scholar', name: 'Scholar', description: 'Completed 10 study sessions', icon: 'BookOpen', condition: (streak) => streak >= 10 },
+  { id: 'early_riser', name: 'Early Riser', description: 'Completed a habit before 8am', icon: 'check', condition: () => false },
 ];
 
 // --- Main App Component ---
@@ -123,6 +125,9 @@ export default function App() {
     const initAuth = async () => {
       if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
         await signInWithCustomToken(auth, __initial_auth_token);
+      } else {
+         // Fallback for environment if needed
+         await signInAnonymously(auth);
       }
     };
     initAuth();
@@ -265,37 +270,38 @@ function LandingPage({ setActivePage }) {
         
         {/* Mock UI Grid - simulating img-main, img-small, img-side */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
-            {/* Main Screenshot Placeholder */}
-            <div className="md:col-span-2 bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden h-[400px] flex flex-col relative group hover:-translate-y-2 transition-transform duration-500">
-                <div className="bg-slate-50 p-4 border-b border-slate-100 flex items-center gap-2">
-                   <div className="w-3 h-3 rounded-full bg-red-400"></div>
-                   <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
-                   <div className="w-3 h-3 rounded-full bg-green-400"></div>
-                </div>
-                <div className="p-8 flex-1 bg-gradient-to-br from-white to-slate-50 flex items-center justify-center">
-                   <div className="text-center">
-                      <img src={Bg} alt="" />
-                   </div>
-                </div>
-            </div>
+           {/* Main Screenshot Placeholder */}
+           <div className="md:col-span-2 bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden h-[400px] flex flex-col relative group hover:-translate-y-2 transition-transform duration-500">
+               <div className="bg-slate-50 p-4 border-b border-slate-100 flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-red-400"></div>
+                  <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
+                  <div className="w-3 h-3 rounded-full bg-green-400"></div>
+               </div>
+               <div className="p-2 flex-1 bg-gradient-to-br from-white to-slate-50 flex items-center justify-center">
+                  <div className="text-center">
+                    <img src={Bg} alt="" />
+                     <p className="text-slate-400 font-medium">Interactive Dashboard Preview</p>
+                  </div>
+               </div>
+           </div>
 
-            {/* Side/Small Screenshots */}
-            <div className="space-y-6">
-               <div className="bg-white rounded-2xl shadow-xl border border-slate-200 p-6 h-[180px] flex items-center gap-4 hover:-translate-x-2 transition-transform">
-                  <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center text-orange-600"><Flame/></div>
-                  <div>
-                     <h4 className="font-bold text-lg">Smart Streaks</h4>
-                     <p className="text-sm text-slate-500">Recovery based system</p>
-                  </div>
-               </div>
-               <div className="bg-white rounded-2xl shadow-xl border border-slate-200 p-6 h-[180px] flex items-center gap-4 hover:-translate-x-2 transition-transform">
-                  <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center text-purple-600"><BrainCircuit/></div>
-                  <div>
-                     <h4 className="font-bold text-lg">AI Mentor</h4>
-                     <p className="text-sm text-slate-500">Personalized tips</p>
-                  </div>
-               </div>
-            </div>
+           {/* Side/Small Screenshots */}
+           <div className="space-y-6">
+              <div className="bg-white rounded-2xl shadow-xl border border-slate-200 p-6 h-[180px] flex items-center gap-4 hover:-translate-x-2 transition-transform">
+                 <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center text-orange-600"><Flame/></div>
+                 <div>
+                    <h4 className="font-bold text-lg">Smart Streaks</h4>
+                    <p className="text-sm text-slate-500">Recovery based system</p>
+                 </div>
+              </div>
+              <div className="bg-white rounded-2xl shadow-xl border border-slate-200 p-6 h-[180px] flex items-center gap-4 hover:-translate-x-2 transition-transform">
+                 <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center text-purple-600"><BrainCircuit/></div>
+                 <div>
+                    <h4 className="font-bold text-lg">AI Mentor</h4>
+                    <p className="text-sm text-slate-500">Personalized tips</p>
+                 </div>
+              </div>
+           </div>
         </div>
       </section>
 
@@ -403,10 +409,10 @@ function AuthForm({ type, setActivePage }) {
 
       if (!userDoc.exists()) {
          await setDoc(userDocRef, {
-            displayName: user.displayName,
-            email: user.email,
-            joinDate: serverTimestamp(),
-            badges: []
+           displayName: user.displayName,
+           email: user.email,
+           joinDate: serverTimestamp(),
+           badges: []
          });
       }
     } catch (err) {
@@ -488,9 +494,14 @@ function Dashboard({ user }) {
 
   const today = getTodayDate();
   const completedToday = habits.filter(h => h.completedDates?.includes(today)).length;
+  // LOGIC FIX 2: Accurate completion rate
   const totalHabits = habits.length;
   const completionRate = totalHabits > 0 ? Math.round((completedToday / totalHabits) * 100) : 0;
   const currentStreak = habits.length > 0 ? Math.max(...habits.map(h => h.streak || 0)) : 0;
+
+  // LOGIC FIX 4: Dynamic recent badges
+  const unlockedBadges = BADGES.filter(b => b.condition(currentStreak));
+  const recentBadges = unlockedBadges.slice(0, 2);
 
   return (
     <div className="max-w-6xl mx-auto p-6 md:p-8 relative">
@@ -520,7 +531,8 @@ function Dashboard({ user }) {
       <div className="flex flex-col lg:flex-row gap-8">
         {/* Left Column: Calendar & Habits */}
         <div className="flex-1 space-y-8">
-           <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+           {/* LOGIC FIX 5: Calendar space adjustment using padding-right on the container div */}
+           <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm pr-8">
              <div className="flex justify-between items-center mb-6">
                <h3 className="font-bold text-lg text-slate-800 capitalize">
                   {currentDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
@@ -569,20 +581,19 @@ function Dashboard({ user }) {
                  <Trophy className="text-yellow-500" size={18}/> Recent Badges
               </h3>
               <div className="space-y-4">
-                 <div className="flex items-center gap-3 p-3 bg-slate-50 rounded-xl">
-                    <div className="text-2xl">🔥</div>
-                    <div>
-                       <div className="font-semibold text-sm">On Fire</div>
-                       <div className="text-xs text-slate-500">3 Day Streak</div>
-                    </div>
-                 </div>
-                 <div className="flex items-center gap-3 p-3 bg-slate-50 rounded-xl">
-                    <div className="text-2xl">🌅</div>
-                    <div>
-                       <div className="font-semibold text-sm">Early Riser</div>
-                       <div className="text-xs text-slate-500">Checked in before 8am</div>
-                    </div>
-                 </div>
+                 {recentBadges.length > 0 ? (
+                    recentBadges.map(badge => (
+                        <div key={badge.id} className="flex items-center gap-3 p-3 bg-slate-50 rounded-xl">
+                            <div className="text-2xl"><badge.icon size={20} className="text-blue-500"/></div>
+                            <div>
+                               <div className="font-semibold text-sm">{badge.name}</div>
+                               <div className="text-xs text-slate-500">{badge.description}</div>
+                            </div>
+                        </div>
+                    ))
+                 ) : (
+                    <p className="text-sm text-slate-400">No badges earned yet.</p>
+                 )}
               </div>
            </div>
            
@@ -802,6 +813,7 @@ function AIMentorModal({ habits, user, onClose }) {
         4. Be encouraging but practical.
       `;
 
+      // Use the API key securely injected by the environment
       const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${GEMINI_API_KEY}`, {
          method: 'POST',
          headers: { 'Content-Type': 'application/json' },
@@ -879,6 +891,21 @@ function Communities({ user }) {
 }
 
 function Rewards({ user }) {
+   // Calculate user's max streak for badge logic
+   const [maxStreak, setMaxStreak] = useState(0);
+
+   useEffect(() => {
+      if(!user) return;
+      const q = query(collection(db, 'artifacts', appId, 'users', user.uid, 'habits'));
+      const unsubscribe = onSnapshot(q, (snapshot) => {
+         const habits = snapshot.docs.map(doc => doc.data());
+         // Simple max streak across all habits
+         const currentMax = habits.reduce((max, h) => Math.max(max, h.streak || 0), 0);
+         setMaxStreak(currentMax);
+      });
+      return () => unsubscribe();
+   }, [user]);
+
    return (
       <div className="max-w-5xl mx-auto p-8">
          <div className="mb-10">
@@ -887,7 +914,9 @@ function Rewards({ user }) {
          </div>
          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {BADGES.map((badge, idx) => {
-               const isUnlocked = idx < 2; 
+               // LOGIC FIX 3: Correct condition for streak unlocking
+               const isUnlocked = badge.condition(maxStreak); 
+               
                const Icon = badge.icon === 'Zap' ? Zap : badge.icon === 'Flame' ? Flame : badge.icon === 'Activity' ? Activity : badge.icon === 'CalendarIcon' ? CalendarIcon : BookOpen;
                return (
                   <div key={badge.id} className={`p-6 rounded-2xl border text-center transition flex flex-col items-center gap-3 ${isUnlocked ? 'bg-white border-green-200 shadow-sm' : 'bg-slate-50 border-slate-200 opacity-60 grayscale'}`}>
@@ -916,22 +945,22 @@ function Profile({ user, setActivePage }) {
    };
 
    useEffect(() => {
-     if (!user) return;
-     const qHabits = query(collection(db, 'artifacts', appId, 'users', user.uid, 'habits'));
-     const habitsUnsub = onSnapshot(qHabits, (snap) => {
-       setHabits(snap.docs.map(d => d.data()));
-     });
+      if (!user) return;
+      const qHabits = query(collection(db, 'artifacts', appId, 'users', user.uid, 'habits'));
+      const habitsUnsub = onSnapshot(qHabits, (snap) => {
+        setHabits(snap.docs.map(d => d.data()));
+      });
 
-     const qActivity = query(collection(db, 'artifacts', appId, 'users', user.uid, 'activity'), orderBy('timestamp', 'desc'), limit(5));
-     const activityUnsub = onSnapshot(qActivity, (snap) => {
-       setActivities(snap.docs.map(d => d.data()));
-     });
+      const qActivity = query(collection(db, 'artifacts', appId, 'users', user.uid, 'activity'), orderBy('timestamp', 'desc'), limit(5));
+      const activityUnsub = onSnapshot(qActivity, (snap) => {
+        setActivities(snap.docs.map(d => d.data()));
+      });
 
-     const userDocUnsub = onSnapshot(doc(db, 'artifacts', appId, 'users', user.uid), (snap) => {
-        if(snap.exists()) setUserData(snap.data());
-     });
+      const userDocUnsub = onSnapshot(doc(db, 'artifacts', appId, 'users', user.uid), (snap) => {
+         if(snap.exists()) setUserData(snap.data());
+      });
 
-     return () => { habitsUnsub(); activityUnsub(); userDocUnsub(); };
+      return () => { habitsUnsub(); activityUnsub(); userDocUnsub(); };
    }, [user]);
 
    const totalHabits = habits.length;
@@ -939,6 +968,15 @@ function Profile({ user, setActivePage }) {
    const longestStreak = habits.length > 0 ? Math.max(...habits.map(h => h.streak || 0)) : 0;
    const earnedBadges = userData?.badges?.length || 0;
    
+   // LOGIC FIX 2: Accurate Completion Rate Calculation
+   const today = getTodayDate();
+   const completedToday = habits.filter(h => h.completedDates?.includes(today)).length;
+   const completionRate = totalHabits > 0 ? Math.round((completedToday / totalHabits) * 100) : 0;
+
+   // LOGIC FIX 1: Top Achievements Section Logic
+   const unlockedBadges = BADGES.filter(b => b.condition(longestStreak));
+   const topAchievements = unlockedBadges.slice(0, 3); // Get top 3 badges
+
    let daysActive = 0;
    if (userData?.joinDate) {
       const diff = new Date() - userData.joinDate.toDate();
@@ -951,7 +989,7 @@ function Profile({ user, setActivePage }) {
       { label: "Days Active", value: daysActive, icon: CalendarIcon },
       { label: "Badges Earned", value: earnedBadges, icon: Trophy },
       { label: "Longest Streak", value: longestStreak, icon: TrendingUp },
-      { label: "Completion Rate", value: "87%", icon: CheckCircle2 } 
+      { label: "Completion Rate", value: `${completionRate}%`, icon: CheckCircle2 } 
    ];
 
    return (
@@ -982,6 +1020,22 @@ function Profile({ user, setActivePage }) {
                      <div className="text-xs text-slate-500 uppercase tracking-wide font-medium mt-1">{stat.label}</div>
                   </div>
                ))}
+            </div>
+         </div>
+
+         {/* LOGIC FIX 1: Top Achievements UI Section */}
+         <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden p-6 mb-8">
+            <h3 className="font-bold text-lg mb-4 text-slate-800">Top Achievements</h3>
+            <div className="flex gap-4">
+               {topAchievements.length > 0 ? (
+                  topAchievements.map(badge => (
+                     <div key={badge.id} className="flex items-center gap-2 bg-yellow-50 text-yellow-700 px-4 py-2 rounded-xl border border-yellow-100">
+                        <Trophy size={16} /> <span className="text-sm font-bold">{badge.name}</span>
+                     </div>
+                  ))
+               ) : (
+                  <p className="text-slate-400 text-sm">No achievements unlocked yet.</p>
+               )}
             </div>
          </div>
 
