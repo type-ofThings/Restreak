@@ -63,15 +63,16 @@ import Bg from './assets/images/bg.png'
 // --- Configuration ---
 
 const USER_FIREBASE_CONFIG = {
-  apiKey: "AIzaSyDMuuPn3mfxLuHz_7vlHN19rBA-BZb3feA",
-  authDomain: "ai-habit-tracker-57471.firebaseapp.com",
-  projectId: "ai-habit-tracker-57471",
-  storageBucket: "ai-habit-tracker-57471.firebasestorage.app",
-  messagingSenderId: "1034377407182",
-  appId: "1:1034377407182:web:6ae7edad76f91f826fbe9f"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+
 };
 
-const GEMINI_API_KEY = "AIzaSyD8Wo7cq58IwxvfQLltZrFJFRxmWQMrVt8";
+const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;;
 
 const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : USER_FIREBASE_CONFIG;
 const app = initializeApp(firebaseConfig);
