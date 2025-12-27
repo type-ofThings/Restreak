@@ -248,12 +248,22 @@ See the `LICENSE` file for more information.
 
 ---
 
-## 👨‍💻 Contact
+## 👨‍💻 Team & Contact
 
-**Developer:** Shahid Khan  
-**LinkedIn:** https://www.linkedin.com/in/shahidx05  
-**Twitter (X):** https://x.com/shahidx_05  
-**GitHub:** https://github.com/shahidx05  
+This project was collaboratively built by a team **Nexora**.
+
+### 👤 Shahid Khan
+- **LinkedIn:** https://www.linkedin.com/in/shahidx05  
+- **Twitter (X):** https://x.com/shahidx_05  
+- **GitHub:** https://github.com/shahidx05  
+
+### 👤 Kunal Sharma
+- **Role:** UI / Frontend Design  
+- **GitHub:** https://github.com/type-ofThings 
+
+### 👤 Teammate 3
+- **Role:** Frontend / UI Support  
+- **GitHub:** https://github.com/rishit2006mehra
 
 **Project Repository:**  
 https://github.com/type-ofThings/Restreak
