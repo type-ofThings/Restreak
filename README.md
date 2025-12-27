@@ -261,7 +261,7 @@ This project was collaboratively built by a team **Nexora**.
 - **Role:** UI / Frontend Design  
 - **GitHub:** https://github.com/type-ofThings 
 
-### 👤 Teammate 3
+### 👤 Rishit Mehra
 - **Role:** Frontend / UI Support  
 - **GitHub:** https://github.com/rishit2006mehra
 
